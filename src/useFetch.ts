@@ -1,7 +1,7 @@
 import {
   useReducer,
   useCallback,
-  Reducer
+  Reducer,
 } from "react";
 import { useSafeDispatch } from "./useSafeDispatch";
 
@@ -12,10 +12,11 @@ export const FETCH_STATUS = {
   rejected: "rejected"
 } as const;
 
+
 export type FetchStatus = typeof FETCH_STATUS[keyof typeof FETCH_STATUS];
 type ResolvedFetch = typeof FETCH_STATUS.resolved;
 
-type FetchAction<T> =
+export type FetchAction<T> =
   | {
       type: Exclude<FetchStatus, ResolvedFetch>
     }
@@ -33,7 +34,7 @@ export type FetchState<T> =
     }
 
 
-function fetchReducer<T>(
+export function fetchReducer<T>(
   state: FetchState<T>,
   action: FetchAction<T>
 ): FetchState<T> {
@@ -48,7 +49,7 @@ function fetchReducer<T>(
 }
 
 function useFetch<T = unknown>(initialData: Record<string, unknown> = {}) {
-  const [state, dispatch] = useReducer<
+  const [state, unsafeDispatch] = useReducer<
     Reducer<FetchState<T>, FetchAction<T>>
   >(fetchReducer, {
     status: FETCH_STATUS.idle,
@@ -56,7 +57,7 @@ function useFetch<T = unknown>(initialData: Record<string, unknown> = {}) {
     ...initialData
   });
 
-  // const dispatch = useSafeDispatch<FetchAction<T>>(unsafeDispatch);
+  const dispatch = useSafeDispatch<FetchAction<T>>(unsafeDispatch);
   const call = useCallback(
     (url) => {
       dispatch({ type: FETCH_STATUS.pending });

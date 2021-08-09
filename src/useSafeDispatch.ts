@@ -10,7 +10,9 @@ export function useSafeDispatch<T>(dispatch: Dispatch<T>) {
       };
     }, []);
 
-    return useCallback((arg:T) => (mounted.current ? dispatch(arg) : void 0), [
-      dispatch
-    ]);
+    return useCallback((arg:T) => {
+      if(mounted.current) {
+        dispatch(arg)
+      }
+    }, [dispatch]);
   }
