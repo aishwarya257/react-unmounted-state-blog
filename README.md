@@ -2,9 +2,10 @@
 Demo for fixing "Can't perform a React state update on an unmounted component" error
 
 
-# Start the application using 
+# Start the application using
 
 ```bash
 yarn start
 ```
 
+Blog [link](https://aishwarya2593.medium.com/fix-cannot-perform-a-react-state-update-on-an-unmounted-component-cd8bfd0729ee)
