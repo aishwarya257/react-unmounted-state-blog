@@ -1,11 +1,11 @@
 import  { useEffect } from 'react'
 import { Todo } from './types/Todo';
-import useFetch from './useFetch';
+import useCancellableFetch from './useCancellableFetch';
 
 
 
 function useTodos() {
-    const [state, call] = useFetch<Todo[]>();
+    const [state, call] = useCancellableFetch<Todo[]>();
     useEffect(() => {
         call("https://jsonplaceholder.typicode.com/todos/");
     }, [call]);

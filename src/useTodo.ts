@@ -1,11 +1,11 @@
 import  { useEffect, useState } from 'react'
 import { Todo } from './types/Todo';
-import useFetch from './useFetch';
+import useCancellableFetch from './useCancellableFetch';
 
 
 
 function useTodo(searchVal: string) {
-    const [state, call] = useFetch<Todo>();
+    const [state, call] = useCancellableFetch<Todo>();
     const [searchValue, setSearchValue] = useState(searchVal)
 
       useEffect(() => {
